@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>💖 Me Enamoré 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.imgur.com/NZ3a9Cm.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Courier New', monospace;
+            color: white;
+            overflow: hidden;
+        }
+
+       .letra {
+    display: none;
+    position: absolute;
+    top: 50%; /* ✅ centra verticalmente */
+    left: 50%; /* ✅ centra horizontalmente */
+    transform: translate(-50%, -50%); /* ✅ centro exacto */
+    width: 90%;
+    text-align: center;
+    font-size: 1.4em;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 15px;
+    z-index: 5;
+}
+
+
+
+        .corazon {
+            position: fixed;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: caer 6s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes caer {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .imagen-flotante {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            animation: flotar 10s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .btn-musica {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            padding: 14px 28px;
+            background-color: #e91e63;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+
+        audio {
+            display: none;
+        }
+        .footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color: black;
+    opacity: 0.7;
+    z-index: 10;
+    font-family: 'Courier New', monospace;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Botón para iniciar -->
+    <button class="btn-musica" onclick="iniciarMusica()">▶️ Iniciar Música</button>
+
+    <!-- Audio oculto -->
+    <audio id="musica" autoplay loop>
+        <source src="music/me-enamore.mp3" type="audio/mpeg" />
+        Tu navegador no soporta audio.
+    </audio>
+
+    <!-- Letra -->
+    <div class="letra" id="letra">me enamore de ti Ale 😍😍...</div>
+
+    <script>
+        /* const frases = [
+        { texto: "Yeh yeah, yay", tiempo: 3000 },
+        { texto: "yeah", tiempo: 2500 },
+        { texto: "La Voz Favorita baby", tiempo: 4000 },
+        { texto: "Hola ¿Qué tal? ¿Cómo tú estás?", tiempo: 3800 },
+        { texto: "No quisiera molestarte, pero tuve que llamarte", tiempo: 5000 },
+        { texto: "Sé que quizás no lo esperabas", tiempo: 5000 },
+        { texto: "Pero tengo que confesarte, que me muero por besarte", tiempo: 4000 },
+        { texto: "Me tienes loco y no lo puedo negar", tiempo: 3000 },
+        { texto: "Y cuando me miras no sé cómo reaccionar", tiempo: 3000 },
+        { texto: "Cambiaste todo, no puedo ni pensar", tiempo: 2500 },
+        { texto: "Me tuve que desahogar, no vayas a cambiar", tiempo: 3000 },
+        { texto: "Me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "Entre tantos corazones en el tuyo me quedé", tiempo: 3500 },
+        { texto: "Y me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "Y no pude evitarlo por más que lo intenté", tiempo: 3500 },
+        { texto: "Me enamoré, me enamoré, (oh) yeh (oh), yeh (oh)", tiempo: 4000 },
+        { texto: "Me enamoré, me enamoré, ahh, ahh", tiempo: 3000 },
+        { texto: "Sé que te cuesta confiar, culpas tu pasado", tiempo: 3500 },
+        { texto: "No quieres volver a empezar, por todo lo que has llorado", tiempo: 4000 },
+        { texto: "Pensando que todos son igual no quieres perder tu tiempo", tiempo: 4500 },
+        { texto: "No sé si me vas a ignorar, por decirte lo que siento", tiempo: 4000 },
+        { texto: "Ya no voy a callarlo", tiempo: 2500 },
+        { texto: "Si me permites, contigo me quedo (yeah)", tiempo: 3000 },
+        { texto: "Tengo que aceptarlo", tiempo: 2000 },
+        { texto: "Trato de no pensarte pero ya no puedo", tiempo: 3000 },
+        { texto: "Me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "Entre tantos corazones en el tuyo me quedé", tiempo: 3500 },
+        { texto: "Y me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "Y no pude evitarlo por más que lo intenté", tiempo: 3500 },
+        { texto: "Imaginando que te tengo aquí, quisiera que digas que sí", tiempo: 4000 },
+        { texto: "¿Qué puedo hacer si siempre te extraño?", tiempo: 3000 },
+        { texto: "No sé en lo que me convertí, pero cuando te vi", tiempo: 3500 },
+        { texto: "Siento que todo cambió", tiempo: 2500 },
+        { texto: "Estoy enamorado y no lo niego, yeah", tiempo: 3000 },
+        { texto: "Si tú no estás me siento ciego", tiempo: 2500 },
+        { texto: "Olvidarte ya no puedo", tiempo: 2500 },
+        { texto: "Tú tienes todo lo que quiero", tiempo: 2500 },
+        { texto: "Me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "(Yeh yeah, yeh yeah)", tiempo: 2000 },
+        { texto: "Y me enamoré, sí, me enamoré", tiempo: 3000 },
+        { texto: "Y no pude evitarlo por más que lo intenté", tiempo: 3500 },
+        { texto: "La Voz Favorita, baby", tiempo: 2500 }
+      ]; */
+
+
+
+
+        const rutasImagenes = [
+            'img/01.jpg',
+            'img/02.jpg',
+            'img/03.jpg',
+             'img/07.jpg',
+             'img/cccc.png',
+             'img/2cora.jpg',
+             
+            
+        ];
+
+        let i = 0;
+
+        function mostrarLetra() {
+            if (i < frases.length) {
+                const fraseActual = frases[i];
+                document.getElementById('letra').textContent = fraseActual.texto;
+                i++;
+                setTimeout(mostrarLetra, fraseActual.tiempo);
+            }
+        }
+
+
+        function lanzarCorazones() {
+            const corazon = document.createElement('div');
+            corazon.classList.add('corazon');
+            corazon.style.left = Math.random() * 100 + 'vw';
+            corazon.style.animationDuration = 3 + Math.random() * 3 + 's';
+            document.body.appendChild(corazon);
+            setTimeout(() => corazon.remove(), 7000);
+        }
+
+        function lanzarImagenes() {
+            const img = document.createElement('img');
+            img.src = rutasImagenes[Math.floor(Math.random() * rutasImagenes.length)];
+            img.classList.add('imagen-flotante');
+            const size = 100 + Math.random() * 60; // entre 100px y 160px
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+
+            img.style.left = Math.random() * 100 + 'vw';
+            img.style.top = '100vh';
+            img.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(img);
+            setTimeout(() => img.remove(), 11000);
+        }
+
+        async function iniciarMusica() {
+            const audio = document.getElementById("musica");
+            const letraDiv = document.getElementById("letra");
+            letraDiv.textContent = "Me enamoré de ti mi Ale 😍😍😍...";
+            letraDiv.style.display = "block";
+            document.querySelector(".btn-musica").style.display = "none";
+
+            const frases = await cargarLRC("lyrics/me-enamore.lrc"); // ✅ nombre sencillo, sin acentos ni espacios
+
+            await audio.play();
+            sincronizarLetra(frases, audio); // ✅ se llama después de tener `frases`
+
+            setInterval(lanzarCorazones, 300);
+            setInterval(lanzarImagenes, 1500);
+        }
+
+
+
+
+    </script>
+    <script>
+        async function cargarLRC(ruta) {
+            const res = await fetch(ruta);
+            const texto = await res.text();
+            const lineas = texto.split('\n');
+            return lineas
+                .map(l => {
+                    const m = l.match(/\[(\d+):(\d+\.\d+)\](.*)/);
+                    return m ? {
+                        tiempo: parseInt(m[1]) * 60 * 1000 + Math.floor(parseFloat(m[2]) * 1000),
+                        texto: m[3].trim()
+                    } : null;
+                })
+                .filter(x => x)
+                .sort((a, b) => a.tiempo - b.tiempo);
+        }
+
+        function sincronizarLetra(frases, audio) {
+            let idx = 0;
+            const letraDiv = document.getElementById('letra');
+            function actualizar() {
+                if (idx < frases.length && audio.currentTime * 1000 >= frases[idx].tiempo) {
+                    letraDiv.textContent = frases[idx].texto;
+                    idx++;
+                }
+                if (idx < frases.length) requestAnimationFrame(actualizar);
+            }
+            actualizar();
+        }
+
+        let frasesLRC = [];
+        document.addEventListener('DOMContentLoaded', async () => {
+            frasesLRC = await cargarLRC('lyrics/Jay Wheeler & DJ Nelson - Me Enamoré.lrc');
+        });
+    </script>
+    <footer class="footer">
+  Derechos de autor © DhanferV 2025
+</footer>
+
+
+</body>
+
+</html>
