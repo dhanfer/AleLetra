@@ -214,7 +214,7 @@
             const img = document.createElement('img');
             img.src = rutasImagenes[Math.floor(Math.random() * rutasImagenes.length)];
             img.classList.add('imagen-flotante');
-            const size = 100 + Math.random() * 60; // entre 100px y 160px
+            img.style.left = Math.random() * 100 + 'vw';
             img.style.width = size + 'px';
             img.style.height = size + 'px';
 
