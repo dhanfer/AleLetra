@@ -214,8 +214,7 @@
             const img = document.createElement('img');
             img.src = rutasImagenes[Math.floor(Math.random() * rutasImagenes.length)];
             img.classList.add('imagen-flotante');
-          const size = 160 + Math.random() * 100; // entre 160px y 260px
-
+            const size = 100 + Math.random() * 60; // entre 100px y 160px
             img.style.width = size + 'px';
             img.style.height = size + 'px';
 
@@ -225,7 +224,6 @@
             document.body.appendChild(img);
             setTimeout(() => img.remove(), 11000);
         }
-
         async function iniciarMusica() {
             const audio = document.getElementById("musica");
             const letraDiv = document.getElementById("letra");
